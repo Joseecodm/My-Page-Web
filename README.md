@@ -44,7 +44,7 @@ This project is licensed under the MIT License. You can view the details in the 
 
 ## About Me
 
-I am a web developer with experience in HTML, CSS, JavaScript, and I am continuously improving my skills. This portfolio not only reflects my projects but also my focus on clean, accessible, and functional design.
+I am a student at ITSOEH, pursuing a degree in Engineering in Information and Communication Technologies (TICS). My interests lie in artificial intelligence and data analysis. This portfolio not only reflects my projects but also my focus on clean, accessible, and functional design.
 
 ## Contact
 

@@ -10,7 +10,7 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: #f0f0f0;
+  background-color: #1a1a1a;
   overflow: hidden;
 }
 
@@ -25,10 +25,16 @@ body {
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  background-color: #ffffff;
+  background-color: #2b2a2a;
   z-index: 10;
-  opacity: 1;
-  transition: opacity 2s ease-out;
+  opacity: 1; /* Comienza completamente opaco */
+  transition: opacity 2s ease-in-out; /* Suavizado más natural */
+}
+
+/* Para ocultar la pantalla de carga */
+#loading.hidden {
+  opacity: 0; /* Desaparece gradualmente */
+  pointer-events: none; /* No permite interacción mientras desaparece */
 }
 
 /* Octocat image styles */
@@ -40,8 +46,8 @@ body {
 
 /* Text styles */
 h1 {
-  font-size: 28px;
-  color: #333;
+  font-size: 38px;
+  color: #ffffff;
   font-weight: 600; /* Medium weight from Poppins */
   margin: 0;
   padding: 0;
@@ -49,7 +55,7 @@ h1 {
 
 p {
   font-size: 16px;
-  color: #555;
+  color: #ffffff;
   font-weight: 400; /* Regular weight from Poppins */
 }
 

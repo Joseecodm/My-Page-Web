@@ -1,38 +1,61 @@
-/* Pantalla de bienvenida */
-.welcome-screen {
-    position: fixed;
+/* Import the Poppins font */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+/* General styles */
+body {
+    font-family: 'Poppins', Arial, sans-serif; /* Apply Poppins as the main font */
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #f0f0f0;
+    overflow: hidden;
+}
+
+/* Loading screen styles */
+#loading {
+    position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: #333;
     display: flex;
     justify-content: center;
     align-items: center;
-    color: white;
-    font-size: 3rem;
-    z-index: 1000;
+    flex-direction: column;
+    background-color: #ffffff;
+    z-index: 10;
     opacity: 1;
-    transition: opacity 1s ease-out;
+    transition: opacity 2s ease-out;
 }
 
-/* Animación de desvanecimiento */
-.welcome-screen h1 {
-    animation: fadeIn 2s ease-out;
+/* Octocat image styles */
+#octocat {
+    width: 120px;
+    height: 120px;
+    margin-bottom: 20px;
 }
 
-@keyframes fadeIn {
-    from {
-        opacity: 0;
-    }
-    to {
-        opacity: 1;
-    }
+/* Text styles */
+h1 {
+    font-size: 28px;
+    color: #333;
+    font-weight: 600; /* Medium weight from Poppins */
+    margin: 0;
+    padding: 0;
 }
 
-/* Contenido principal */
-.main-content {
-    padding: 20px;
-    text-align: center;
+p {
+    font-size: 16px;
+    color: #555;
+    font-weight: 400; /* Regular weight from Poppins */
+}
+
+/* Main content styles */
+#main-content {
     display: none;
+    text-align: center;
+    padding: 20px;
 }

@@ -1,12 +1,12 @@
-window.onload = function() {
-    setTimeout(function() {
-        // Ocultar la pantalla de bienvenida
-        document.querySelector('.welcome-screen').style.opacity = 0;
-        
-        // Mostrar el contenido principal después de la animación
-        setTimeout(function() {
-            document.querySelector('.welcome-screen').style.display = 'none';
-            document.querySelector('.main-content').style.display = 'block';
-        }, 1000); // Esperar que termine la animación de desvanecimiento
-    }, 2000); // Tiempo que dura la pantalla de bienvenida (2 segundos)
-};
+// Wait for the page to fully load
+window.addEventListener("load", () => {
+    // After a small delay, hide the loading screen and show the content
+    setTimeout(() => {
+        // Hide the loading screen
+        document.getElementById("loading").style.opacity = "0"; // Make it invisible
+        document.getElementById("loading").style.visibility = "hidden"; // Makes it invisible without removing it
+
+        // Show the main content
+        document.getElementById("main-content").style.display = "block"; // Display content
+    }, 2000); // 2 seconds to show the loading screen
+});

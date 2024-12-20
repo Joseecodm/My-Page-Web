@@ -1,129 +1,132 @@
-// Wait for the page to fully load
-window.addEventListener("load", () => {
-  // After a small delay, hide the loading screen and show the content
-  setTimeout(() => {
-    // Hide the loading screen
-    document.getElementById("loading").style.opacity = "0"; // Make it invisible
-    document.getElementById("loading").style.visibility = "hidden"; // Makes it invisible without removing it
+'use strict';
 
-    // Show the main content
-    document.getElementById("main-content").style.display = "block"; // Display content
-  }, 2000); // 2 seconds to show the loading screen
-});
+//Opening or closing side bar
 
-// Toggle element visibility
-const elementToggleFunc = (elem) => elem.classList.toggle("active");
+const elementToggleFunc = function (elem) { elem.classList.toggle("active"); }
 
-// Sidebar toggle
 const sidebar = document.querySelector("[data-sidebar]");
 const sidebarBtn = document.querySelector("[data-sidebar-btn]");
 
-sidebarBtn?.addEventListener("click", () => {
-  elementToggleFunc(sidebar);
-});
+sidebarBtn.addEventListener("click", function() {elementToggleFunc(sidebar); })
 
-// Testimonial modal
-const testimonialsItems = document.querySelectorAll("[data-testimonials-item]");
-const modalContainer = document.querySelector("[data-modal-container]");
-const modalCloseBtn = document.querySelector("[data-modal-close-btn]");
-const overlay = document.querySelector("[data-overlay]");
+//Activating Modal-testimonial
 
-const modalImg = document.querySelector("[data-modal-img]");
-const modalTitle = document.querySelector("[data-modal-title]");
-const modalText = document.querySelector("[data-modal-text]");
+const testimonialsItem = document.querySelectorAll('[data-testimonials-item]');
+const modalContainer = document.querySelector('[data-modal-container]');
+const modalCloseBtn = document.querySelector('[data-modal-close-btn]');
+const overlay = document.querySelector('[data-overlay]');
 
-const testimonialsModalFunc = () => {
-  modalContainer.classList.toggle("active");
-  overlay.classList.toggle("active");
-};
+const modalImg = document.querySelector('[data-modal-img]');
+const modalTitle = document.querySelector('[data-modal-title]');
+const modalText = document.querySelector('[data-modal-text]');
 
-testimonialsItems.forEach((item) => {
-  item.addEventListener("click", () => {
-    modalImg.src = item.querySelector("[data-testimonials-avatar]").src;
-    modalImg.alt = item.querySelector("[data-testimonials-avatar]").alt;
-    modalTitle.innerHTML = item.querySelector("[data-testimonials-title]").innerHTML;
-    modalText.innerHTML = item.querySelector("[data-testimonials-text]").innerHTML;
+const testimonialsModalFunc = function () {
+    modalContainer.classList.toggle('active');
+    overlay.classList.toggle('active');
+}
 
-    testimonialsModalFunc();
-  });
-});
+for (let i = 0; i < testimonialsItem.length; i++) {
+    testimonialsItem[i].addEventListener('click', function () {
+        modalImg.src = this.querySelector('[data-testimonials-avatar]').src;
+        modalImg.alt = this.querySelector('[data-testimonials-avatar]').alt;
+        modalTitle.innerHTML = this.querySelector('[data-testimonials-title]').innerHTML;
+        modalText.innerHTML = this.querySelector('[data-testimonials-text]').innerHTML;
 
-modalCloseBtn?.addEventListener("click", testimonialsModalFunc);
-overlay?.addEventListener("click", testimonialsModalFunc);
+        testimonialsModalFunc();
+    })
+}
 
-// Filter functionality
-const select = document.querySelector("[data-select]");
-const selectItems = document.querySelectorAll("[data-select-item]");
-const selectValue = document.querySelector("[data-select-value]");
-const filterBtn = document.querySelectorAll("[data-filter-btn]");
-const filterItems = document.querySelectorAll("[data-filter-item]");
+//Activating close button in modal-testimonial
 
-const filterFunc = (selectedValue) => {
-  filterItems.forEach((item) => {
-    if (selectedValue === "all" || selectedValue === item.dataset.category) {
-      item.classList.add("active");
-    } else {
-      item.classList.remove("active");
+modalCloseBtn.addEventListener('click', testimonialsModalFunc);
+overlay.addEventListener('click', testimonialsModalFunc);
+
+//Activating Filter Select and filtering options
+
+const select = document.querySelector('[data-select]');
+const selectItems = document.querySelectorAll('[data-select-item]');
+const selectValue = document.querySelector('[data-select-value]');
+const filterBtn = document.querySelectorAll('[data-filter-btn]');
+
+select.addEventListener('click', function () {elementToggleFunc(this); });
+
+for(let i = 0; i < selectItems.length; i++) {
+    selectItems[i].addEventListener('click', function() {
+
+        let selectedValue = this.innerText.toLowerCase();
+        selectValue.innerText = this.innerText;
+        elementToggleFunc(select);
+        filterFunc(selectedValue);
+
+    });
+}
+
+const filterItems = document.querySelectorAll('[data-filter-item]');
+
+const filterFunc = function (selectedValue) {
+    for(let i = 0; i < filterItems.length; i++) {
+        if(selectedValue == "all") {
+            filterItems[i].classList.add('active');
+        } else if (selectedValue == filterItems[i].dataset.category) {
+            filterItems[i].classList.add('active');
+        } else {
+            filterItems[i].classList.remove('active');
+        }
     }
-  });
-};
+}
 
-select?.addEventListener("click", () => {
-  elementToggleFunc(select);
-});
-
-selectItems.forEach((item) => {
-  item.addEventListener("click", () => {
-    const selectedValue = item.innerText.toLowerCase();
-    selectValue.innerText = item.innerText;
-    elementToggleFunc(select);
-    filterFunc(selectedValue);
-  });
-});
+//Enabling filter button for larger screens 
 
 let lastClickedBtn = filterBtn[0];
-filterBtn.forEach((btn) => {
-  btn.addEventListener("click", () => {
-    const selectedValue = btn.innerText.toLowerCase();
-    selectValue.innerText = btn.innerText;
-    filterFunc(selectedValue);
 
-    lastClickedBtn?.classList.remove("active");
-    btn.classList.add("active");
-    lastClickedBtn = btn;
-  });
-});
+for (let i = 0; i < filterBtn.length; i++) {
+    
+    filterBtn[i].addEventListener('click', function() {
 
-// Form validation
-const form = document.querySelector("[data-form]");
-const formInputs = document.querySelectorAll("[data-form-input]");
-const formBtn = document.querySelector("[data-form-btn]");
+        let selectedValue = this.innerText.toLowerCase();
+        selectValue.innerText = this.innerText;
+        filterFunc(selectedValue);
 
-formInputs.forEach((input) => {
-  input.addEventListener("input", () => {
-    if (form.checkValidity()) {
-      formBtn?.removeAttribute("disabled");
-    } else {
-      formBtn?.setAttribute("disabled", "");
-    }
-  });
-});
+        lastClickedBtn.classList.remove('active');
+        this.classList.add('active');
+        lastClickedBtn = this;
 
-// Page navigation
-const navigationLinks = document.querySelectorAll("[data-nav-link]");
-const pages = document.querySelectorAll("[data-page]");
+    })
+}
 
-navigationLinks.forEach((link) => {
-  link.addEventListener("click", () => {
-    pages.forEach((page) => {
-      if (link.innerText.toLowerCase() === page.dataset.page) {
-        page.classList.add("active");
-        link.classList.add("active");
-        window.scrollTo(0, 0);
-      } else {
-        page.classList.remove("active");
-        link.classList.remove("active");
-      }
+// Enabling Contact Form
+
+const form = document.querySelector('[data-form]');
+const formInputs = document.querySelectorAll('[data-form-input]');
+const formBtn = document.querySelector('[data-form-btn]');
+
+for(let i = 0; i < formInputs.length; i++) {
+    formInputs[i].addEventListener('input', function () {
+        if(form.checkValidity()) {
+            formBtn.removeAttribute('disabled');
+        } else { 
+            formBtn.setAttribute('disabled', '');
+        }
+    })
+}
+
+// Enabling Page Navigation 
+
+const navigationLinks = document.querySelectorAll('[data-nav-link]');
+const pages = document.querySelectorAll('[data-page]');
+
+for(let i = 0; i < navigationLinks.length; i++) {
+    navigationLinks[i].addEventListener('click', function() {
+        
+        for(let i = 0; i < pages.length; i++) {
+            if(this.innerHTML.toLowerCase() == pages[i].dataset.page) {
+                pages[i].classList.add('active');
+                navigationLinks[i].classList.add('active');
+                window.scrollTo(0, 0);
+            } else {
+                pages[i].classList.remove('active');
+                navigationLinks[i]. classList.remove('active');
+            }
+        }
     });
-  });
-});
+}
